@@ -61,7 +61,7 @@ namespace RetailManagementService
                 Products = myService.Get()
             });
 
-            bus.Rpc.Respond<ProductRequest, ProductResponse>(request => new ProductResponse
+            bus.Rpc.Respond<ProductItemRequest, ProductResponse>(request => new ProductResponse
             {
                 Product = myService.GetProductById(request.Parameter)
             });

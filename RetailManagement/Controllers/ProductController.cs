@@ -32,9 +32,8 @@ namespace RetailManagementAPI.Controllers
         public IActionResult Get(string id)
         {
             var messageBus = RabbitHutch.CreateBus(this._configuration.GetConnectionString("RabbtMq"));
-            var reponse = messageBus.Rpc.Request<ProductRequest, ProductResponse>(new ProductRequest
+            var reponse = messageBus.Rpc.Request<ProductItemRequest, ProductResponse>(new ProductItemRequest
             {
-                Records = 5,
                 Parameter = id
             });
             return Ok(reponse);
