@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RetailManagementService.DataContext
 {
-    public interface IMongosettings
+    public interface IMongoSettings
     {
         public string ProductCollectionName { get; set; }
         public string ReductionCollectionName { get; set; }

@@ -10,7 +10,7 @@ namespace RetailManagementService.DataContext
         public IClientSessionHandle Session { get; set; }
         public string ProductCollectionName { get; set; }
         public string ReductionCollectionName { get; set; }
-        public MongoDBContext(IOptions<Mongosettings> configuration)
+        public MongoDBContext(IOptions<MongoSettings> configuration)
         {
             _mongoClient = new MongoClient(configuration.Value.ConnectionString ?? "mongodb://127.0.0.1:27017");
             _db = _mongoClient.GetDatabase(configuration.Value.DatabaseName ?? "retail");

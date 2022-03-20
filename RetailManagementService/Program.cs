@@ -21,8 +21,8 @@ namespace RetailManagementService
             var builder = Host.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.Configure<Mongosettings>(hostContext.Configuration.GetSection(nameof(Mongosettings)));
-                    services.AddSingleton<IMongosettings>(sp => sp.GetRequiredService<IOptions<Mongosettings>>().Value);
+                    services.Configure<MongoSettings>(hostContext.Configuration.GetSection(nameof(MongoSettings)));
+                    services.AddSingleton<IMongoSettings>(sp => sp.GetRequiredService<IOptions<MongoSettings>>().Value);
                     services.AddTransient<ProductService>();
                     services.AddScoped<IMongoDBContext, MongoDBContext>();
                     services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

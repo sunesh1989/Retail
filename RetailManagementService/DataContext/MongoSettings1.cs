@@ -1,6 +1,6 @@
 ﻿namespace RetailManagementService.DataContext
 {
-    public class Mongosettings : IMongosettings
+    public class MongoSettings : IMongoSettings
     {
         public string ProductCollectionName { get; set; }
         public string ReductionCollectionName { get; set; }
