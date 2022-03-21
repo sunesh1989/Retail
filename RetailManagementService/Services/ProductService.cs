@@ -23,9 +23,14 @@ namespace RetailManagementService.Services
         /// Get all products
         /// </summary>
         /// <returns></returns>
-        public List<Product> Get()
+        public List<Product> Get(int records,int pageNumber)
         {
-            return _mapper.Map<List<Product>>(_context.GetCollection<RetailProduct>(_context.ProductCollectionName).Find(_ => true).ToList());
+            var skipCount = (pageNumber <= 0) ? 0 : ((pageNumber-1) * records);
+            return _mapper.Map<List<Product>>(
+                _context.GetCollection<RetailProduct>(_context.ProductCollectionName)
+                .Find(_ => true)
+                .Limit(records)
+                .Skip(skipCount).ToList());
         }
 
         /// <summary>

@@ -12,14 +12,27 @@ namespace RetailManagementAPI.UnitTest
         private const string RabbitMqConnection = "host=localhost";
         
         [Fact]
-        public void GetAllProduct()
+        public void GetAllProduct()  
         {
             var messageBus = RabbitHutch.CreateBus(RabbitMqConnection);
             var reponse = messageBus.Rpc.Request<ProductRequest, ProductResponse>(new ProductRequest
             {
-                Records = 5
+                Records = 10,
+                PageNumber = 1
             });
             Assert.True(reponse.Products.Count > 0);
+        }
+
+        [Fact]
+        public void GetOnlyOneProduct()
+        {
+            var messageBus = RabbitHutch.CreateBus(RabbitMqConnection);
+            var reponse = messageBus.Rpc.Request<ProductRequest, ProductResponse>(new ProductRequest
+            {
+                Records = 1,
+                PageNumber = 1
+            });
+            Assert.True(reponse.Products.Count > 0 && reponse.Products.Count == 1);
         }
 
         [Fact]

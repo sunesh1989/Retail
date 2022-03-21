@@ -8,21 +8,21 @@ namespace RetailManagementAPI.Controllers
     [Route("api/[controller]")]
     public class ProductController : Controller
     {
-        private IConfiguration _configuration;
+        private IBus _messageBus;
 
-        public ProductController(IConfiguration configuration)
+        public ProductController(IBus iBus)
         {
-            _configuration = configuration;
+            _messageBus = iBus;
         }
 
         // GET: api/<controller>
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("{topRecordCount}/{page}")]
+        public IActionResult Get(int topRecordCount = 100, int page = 1)
         {
-            var messageBus = RabbitHutch.CreateBus(this._configuration.GetConnectionString("RabbtMq"));
-            var reponse = messageBus.Rpc.Request<ProductRequest, ProductResponse>(new ProductRequest
+            var reponse = _messageBus.Rpc.Request<ProductRequest, ProductResponse>(new ProductRequest
             {
-                Records = 5
+                Records = topRecordCount,
+                PageNumber = page
             });
             return Ok(reponse);
         }
@@ -31,8 +31,7 @@ namespace RetailManagementAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
-            var messageBus = RabbitHutch.CreateBus(this._configuration.GetConnectionString("RabbtMq"));
-            var reponse = messageBus.Rpc.Request<ProductItemRequest, ProductResponse>(new ProductItemRequest
+            var reponse = _messageBus.Rpc.Request<ProductItemRequest, ProductResponse>(new ProductItemRequest
             {
                 Parameter = id
             });

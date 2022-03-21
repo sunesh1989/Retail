@@ -3,8 +3,7 @@
     public class ProductRequest
     {
         public int Records { get; set; }
-        public int Limit { get; set; }
-        public int StartFrom { get; set; }
+        public int PageNumber { get; set; }
         public string Parameter { get; set; }
     }
 

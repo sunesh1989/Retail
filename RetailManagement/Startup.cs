@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-
+using EasyNetQ; 
 namespace RetailManagement
 {
     public class Startup
@@ -27,6 +27,7 @@ namespace RetailManagement
         {
             services.AddCors();
             services.AddControllers();
+            services.AddSingleton<IBus>(RabbitHutch.CreateBus(this.Configuration.GetConnectionString("RabbtMq")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
